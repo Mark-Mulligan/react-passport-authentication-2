@@ -2,16 +2,13 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require('passport');
 
-
 exports.loginUser = (req, res, next) => {
-  console.log('login route hit');
   passport.authenticate('local', (err, user, info) => {
     if (err) throw err;
     if (!user) res.json({ success: false, message: 'Incorrect Credentials'});
     else {
       req.login(user, error => {
         if (error) throw error;
-        console.log(user, error);
         res.json({ success: true, data: user});
       })
     }
