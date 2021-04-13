@@ -44,3 +44,8 @@ exports.registerUser = (req, res) => {
   })
 }
 
+exports.logoutUser = (req, res) => {
+    req.logout();
+    res.json({ success: true, message: 'You have been logged out' });
+}
+
