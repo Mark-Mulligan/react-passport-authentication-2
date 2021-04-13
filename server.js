@@ -4,6 +4,7 @@ const routes = require("./routes");
 const cors = require('cors');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const connectDB = require("./config/db");
 const app = express();
 const PORT = process.env.PORT || 3001;
