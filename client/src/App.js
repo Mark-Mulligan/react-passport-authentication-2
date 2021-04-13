@@ -1,5 +1,8 @@
 import { useState } from "react";
+import axios from 'axios';
 import { TextField } from "@material-ui/core";
+
+import "./App.css";
 
 const App = () => {
   const [loginPage, setLoginPage] = useState(false);
@@ -8,36 +11,76 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleCancelClick = () => {
+    loginPage ? setLoginPage(false) : setRegisterPage(false);
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (loginPage) {
+      console.log(username, password);
+    } else {
+      try {
+        const result = await axios.post('/api/register', { username, password });
+        console.log(result);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <div className="App">
-      <div className="container">
-        <h1 className="text-center">Passport Auth</h1>
+      <div className="container max-width-600 text-center">
+        <h1 className="">Passport Auth</h1>
         {loginPage || registerPage ? (
-          <div>
-            <TextField
-              required
-              fullWidth
-              id="username-input"
-              label="Username"
-              variant="outlined"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+          <div className="mt-3">
+            <form onSubmit={handleFormSubmit}>
+              <h2>{loginPage ? "Login" : "Register"}</h2>
+              <div className="mb-3">
+                <TextField
+                  required
+                  fullWidth
+                  id="username-input"
+                  label="Username"
+                  variant="outlined"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
 
-            <TextField
-              required
-              fullWidth
-              type="password"
-              id="password-input"
-              label="Password"
-              variant="outlined"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+              <div className="mb-3">
+                <TextField
+                  required
+                  fullWidth
+                  type="password"
+                  id="password-input"
+                  label="Password"
+                  variant="outlined"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <button className="btn btn-dark mr-2">
+                  {loginPage ? "Login" : "Create Account"}
+                </button>
+                <button
+                  className="btn btn-outline-dark"
+                  onClick={handleCancelClick}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         ) : (
           <div>
-            <button className="btn btn-dark" onClick={() => setLoginPage(true)}>
+            <button
+              className="btn btn-dark mr-2"
+              onClick={() => setLoginPage(true)}
+            >
               Login
             </button>
             <button
