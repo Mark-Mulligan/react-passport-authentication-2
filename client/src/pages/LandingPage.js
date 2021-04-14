@@ -48,6 +48,15 @@ const LandingPage = (props) => {
     }
   }
 
+  const getPrivateData = async () => {
+    try {
+      const result = await axios.get('/api/private');
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="App">
       <div className="container max-width-600 text-center">
@@ -117,6 +126,7 @@ const LandingPage = (props) => {
 
       <div>
         <button onClick={getUserInfo} className="btn btn-dark">Get User Info</button>
+        <button onClick={getPrivateData} className="btn btn-outline-dark">Get Private Data</button>
       </div>
     </div>
   );

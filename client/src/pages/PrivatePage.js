@@ -21,11 +21,21 @@ const PrivatePage = (props) => {
     }
   }
 
+  const getPrivateData = async () => {
+    try {
+      const result = await axios.get('/api/private');
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="container">
       <h1>Private Page</h1>
       <button onClick={getUserInfo} className="btn btn-dark mr-2">Get User Data</button>
-      <button onClick={handleLogout} className="btn btn-outline-dark">Logout</button>
+      <button onClick={handleLogout} className="btn btn-outline-dark mr-2">Logout</button>
+      <button onClick={getPrivateData} className="btn btn-outline-dark">Get Private Data</button>
     </div>
   )
 }
