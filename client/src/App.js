@@ -7,6 +7,8 @@ import PrivatePage from "./pages/PrivatePage";
 import "./App.css";
 
 const App = () => {
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
       <Switch>
@@ -16,6 +18,8 @@ const App = () => {
           render={(props) => (
             <LandingPage
               {...props}
+              userLoggedIn={userLoggedIn}
+              setUserLoggedIn={setUserLoggedIn}
             />
           )}
         />
@@ -25,6 +29,8 @@ const App = () => {
           render={(props) => (
             <PrivatePage
               {...props}
+              userLoggedIn={userLoggedIn}
+              setUserLoggedIn={setUserLoggedIn}
             />
           )}
         />

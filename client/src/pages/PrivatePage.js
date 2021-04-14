@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const PrivatePage = (props) => {
 
@@ -29,6 +30,14 @@ const PrivatePage = (props) => {
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    axios.get('/api/user').then((result) => {
+      if (!result.data) {
+        props.history.push('/');
+      }
+    })
+  }, [props.userLoggedIn])
 
   return (
     <div className="container">
